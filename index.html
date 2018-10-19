@@ -17,11 +17,20 @@
 </head>
 <body>
     <div ng-app="app" ng-controller="mainCtrl">
-        <div ng-repeat="stock in stocks">
-            <!--
+        <h1>Stock Tracker</h1>
+        <form name="stockForm" ng-submit="addNew(stockForm)">
+            Enter Stock Ticker to Track:
+            <input placeholder="Stock Ticker" ng-model="stockForm.ticker">
+            <button type="submit">Add</button>
+        </form>
+        <div id="currentlyTracking">
+            <h2>You are currently tracking: <button ng-click="clear()">Clear</button></h2>
+            <ul>
+                <li ng-repeat="ticker in toTrack">{{ticker}}</li>
+            </ul>
+        </div>
+        <div>
             <linechart data="data" options="options"></linechart>
-            -->
-            {{stock.date}}
         </div>
     </div>
 </body>
