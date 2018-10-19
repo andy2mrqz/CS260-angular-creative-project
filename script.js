@@ -20,7 +20,7 @@ class StockMinutePrice {
     }
 }
 
-angular.module('app', [])
+angular.module('app', ['n3-line-chart'])
     .controller('mainCtrl', mainCtrl);
 
 function mainCtrl ($scope) {
@@ -29,7 +29,6 @@ function mainCtrl ($scope) {
 
     $scope.addStockPrice = function (dp) {
         $scope.stocks.push(dp);
-        console.log($scope.stocks);
     }
 
     for (let ticker of $scope.toTrack) {
