@@ -14,7 +14,7 @@
   <body ng-controller='MainCtrl'>
     <div class="my-chart jumbotron container text-center">
         <h1>Stock Price Tracker</h1>
-        <h3>Stock: {stock name}</h3>
+        <h2>Google and Apple</h2>
         <linechart data="data" options="options"></linechart>
     </div>
 
@@ -29,7 +29,13 @@
                 {x: new Date("2015-05-18"), val_0:28},
                 {x: new Date("2017-09-18"), val_0:89},
                 {x: new Date("2018-09-18"), val_0:15}
-                ]
+                ],
+            dataset1: [
+                {x: new Date("2015-01-15"), val_1:80},
+                {x: new Date("2015-02-18"), val_1:187},
+                {x: new Date("2016-03-18"), val_1:253},
+                {x: new Date("2018-06-18"), val_1:22}
+            ]
 
           };
 
@@ -38,16 +44,26 @@
             series: [
                 {
                 axis: "y",
-                y: "price",
+                y1: "price",
                 dataset: "dataset0",
                 key: "val_0",
-                label: "Stock price: $",
+                label: "Google: $",
                 color: "hsla(88, 48%, 48%, 1)",
                 type: ["dot","line"],
                 id: "mySeries0"
+                },
+                {
+                  axis: "y",
+                  y2: "price",
+                  dataset: "dataset1",
+                  key: "val_1",
+                  label: "Apple: $",
+                  color: "hsla(217, 44%, 22%, 1)",
+                  type: ["dot","line"],
+                  id: "mySeries1"
                 }
             ],
-            axes: {x: {key: "x", type: "date"}}
+            axes: {x: {key: "x", type: "date"}},
             };
         });
     </script>
