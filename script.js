@@ -27,6 +27,10 @@ function mainCtrl ($scope) {
     $scope.toTrack = ['GOOGL']
     $scope.stocks = [];
 
+    $scope.data = {
+
+    }
+
     $scope.options = {
         margin: {top: 20},
         series: [
@@ -43,6 +47,15 @@ function mainCtrl ($scope) {
         ],
         axes: {x: {key: "x", type: "date"}}
     };
+
+    $scope.addNew = function(stock) {
+        $scope.toTrack.push(stock.ticker);
+        stock.ticker = "";
+    }
+
+    $scope.clear = function() {
+        $scope.toTrack = [];
+    }
 
     $scope.addStockPrice = function (dp) {
         $scope.stocks.push(dp);
