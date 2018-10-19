@@ -35,19 +35,14 @@ function mainCtrl ($scope) {
         five_year_url = 'https://api.iextrading.com/1.0/stock/' + ticker + '/chart/5y';
         $.getJSON(five_year_url)
             .done((response) => {
-                var i = 0;
                 for (let price of response) {
-                    if (i > 10) {
-                        console.log(i);
-                        break;
-                    }
                     let dayprice = new StockDayPrice(
                         ticker, price.date, price.open, price.close,
                         price.high, price.low, price.change, price.changePercent
                     );
                     $scope.addStockPrice(dayprice);
-                    i++;
                 }
+                $scope.$apply();
             })
             .fail(() => console.log("Trouble grabbing data for " + ticker));
     }
