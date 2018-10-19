@@ -12,14 +12,6 @@ class StockDayPrice {
     }
 }
 
-class StockMinutePrice {
-    constructor(symbol, datetime, price) {
-        this.symbol = symbol;
-        this.datetime = datetime;
-        this.price = price;
-    }
-}
-
 angular.module('app', ['n3-line-chart'])
     .controller('mainCtrl', mainCtrl);
 
