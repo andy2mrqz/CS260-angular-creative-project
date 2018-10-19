@@ -24,13 +24,31 @@ angular.module('app', ['n3-line-chart'])
     .controller('mainCtrl', mainCtrl);
 
 function mainCtrl ($scope) {
-    $scope.toTrack = ['GOOGL', 'AAPL']
+    $scope.toTrack = ['GOOGL']
     $scope.stocks = [];
+
+    $scope.options = {
+        margin: {top: 20},
+        series: [
+            {
+            axis: "y",
+            y: "price",
+            dataset: "dataset0",
+            key: "val_0",
+            label: "A line series",
+            color: "hsla(88, 48%, 48%, 1)",
+            type: ["line"],
+            id: "mySeries0"
+            }
+        ],
+        axes: {x: {key: "x", type: "date"}}
+    };
 
     $scope.addStockPrice = function (dp) {
         $scope.stocks.push(dp);
     }
 
+    // Get 5 year stock data for each stock we want to track and add to stocks
     for (let ticker of $scope.toTrack) {
         five_year_url = 'https://api.iextrading.com/1.0/stock/' + ticker + '/chart/5y';
         $.getJSON(five_year_url)
