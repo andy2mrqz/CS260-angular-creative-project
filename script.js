@@ -24,6 +24,18 @@ angular.module('app', [])
     .controller('mainCtrl', mainCtrl);
 
 function mainCtrl ($scope) {
+    $scope.toTrack = ['GOOGL', 'AAPL']
+    $scope.stocks = [];
 
+    $scope.addStockPrice = function (s) {
+        s.symbol = "GOOGL";
+        s.date = "10/18/18";
+        s.open = Math.floor(Math.random() * 100) + 100;
+        s.close = Math.floor(Math.random() * 100) + 100;
+        $scope.stocks.push(s);
+    }
 
+    for (var i = 0; i < 50; i++) {
+        $scope.addStockPrice(new StockDayPrice);
+    }
 }

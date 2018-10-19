@@ -10,7 +10,10 @@
 <body>
     <div ng-app="app" ng-controller="mainCtrl">
         <ul>
-            <li ng-repeat="x in [1, 2, 3, 4]">{{x}}</li>
+            <div ng-repeat="stock in stocks">
+                <h5>{{stock.symbol}}</h5>
+                <h5>{{stock.close}}</h5>
+            </div>
         </ul>
     </div>
     
