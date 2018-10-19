@@ -14,24 +14,26 @@
     <!-- Reference custom scripts -->
     <script src="script.js"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
 <body>
-    <div ng-app="app" ng-controller="mainCtrl">
-        <h1>Stock Tracker</h1>
-        <form name="stockForm" ng-submit="addNew(stockForm)">
-            Enter Stock Ticker to Track:
-            <input placeholder="Stock Ticker" ng-model="stockForm.ticker">
-            <button type="submit">Add</button>
-        </form>
-        <div id="currentlyTracking">
-            <h2>You are currently tracking: <button ng-click="clear()">Clear</button></h2>
-            <ul>
-                <li ng-repeat="ticker in toTrack">{{ticker}}</li>
-            </ul>
+    <div class="jumbotron container text-center" ng-app="app" ng-controller="mainCtrl">
+        <div class="text-center">
+            <h1>Stock Tracker</h1>
+            <form name="stockForm" ng-submit="addNew(stockForm)">
+                <input placeholder="Enter Stock Ticker to Track" ng-model="stockForm.ticker" id="textInput" class="form-control text-center">
+                <button type="submit" class="btn btn-primary">Add Stock</button>
+            </form>
+            <div>
+                <linechart data="data" options="options"></linechart>
+            </div>
+            <div id="currentlyTracking">
+                <h3>You are currently tracking: </h3>
+                <p ng-repeat="ticker in toTrack">{{ticker}}</p>
+            </div>
         </div>
-        <div>
-            <linechart data="data" options="options"></linechart>
-        </div>
+        <button ng-click="clear()" class="btn btn-primary">Clear Stocks</button>
     </div>
 </body>
 </html>
