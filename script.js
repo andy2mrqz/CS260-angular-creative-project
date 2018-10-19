@@ -27,8 +27,11 @@ function mainCtrl ($scope) {
     $scope.toTrack = []
     $scope.stocks = [];
 
-    $scope.data = {
+    $scope.updateLineChart = function() {
+        // Do something that adds what's in stocks to the data and options
+    }
 
+    $scope.data = {
     }
 
     $scope.options = {
@@ -80,6 +83,7 @@ function mainCtrl ($scope) {
                 })
                 .fail(() => console.log("Trouble grabbing data for " + ticker));
         }
-    }
 
+        $scope.updateLineChart();
+    }
 }
