@@ -28,10 +28,17 @@ function mainCtrl ($scope) {
     $scope.stocks = [];
 
     $scope.updateLineChart = function() {
-        // Do something that adds what's in stocks to the data and options
+        dataset0 = [
+            {x: new Date("2015-04-15"), val_0:15},
+            {x: new Date("2015-05-18"), val_0:28},
+            {x: new Date("2017-09-18"), val_0:89},
+            {x: new Date("2018-09-18"), val_0:15}
+            ]
     }
 
     $scope.data = {
+        dataset0: [
+            ]
     }
 
     $scope.options = {

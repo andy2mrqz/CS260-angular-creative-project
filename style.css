@@ -2,6 +2,16 @@ text {
     font-size: 15px;
 }
 
-div.my-chart.jumbotron.container.text-center {
+div.jumbotron.container{
     padding-top: 30px;
+}
+
+.btn.btn-primary {
+    margin-top: 10px;
+    font-weight: bolder;
+}
+
+#textInput {
+    max-width: 300px;
+    margin:0 auto;
 }
