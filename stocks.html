@@ -1,0 +1,51 @@
+<!doctype html>
+<html ng-app="app">
+  <head>
+    <!-- Reference AngularJS and D3.js -->
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/d3/d3.min.js"></script>
+    <!-- Reference n3-line-chart -->
+    <script src="node_modules/n3-charts/build/LineChart.js"></script>
+    <link rel="stylesheet" href="node_modules/n3-charts/build/LineChart.css">
+  </head>
+  <body ng-controller='MainCtrl'>
+    <div class="my-chart">
+      <linechart data="data" options="options"></linechart>
+    </div>
+
+    <script type="text/javascript">
+
+      angular
+        .module('app', ['n3-line-chart'])
+
+        .controller('MainCtrl', function($scope) {
+          $scope.data = {
+            dataset0: [
+                {x: new Date("2015-04-15"), val_0: 15},
+                {x: new Date("2015-05-18"), val_0: 28},
+                {x: new Date("2017-09-18"), val_0: 57}
+                ]
+
+          };
+
+            $scope.options = {
+            margin: {top: 20},
+            series: [
+                {
+                axis: "y",
+                y: "price",
+                dataset: "dataset0",
+                key: "val_0",
+                label: "A line series",
+                color: "hsla(88, 48%, 48%, 1)",
+                type: ["line"],
+                id: "mySeries0"
+                }
+            ],
+            axes: {x: {key: "x", type: "date"}}
+            };
+
+        });
+    </script>
+  </body>
+</html>
