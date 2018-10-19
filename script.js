@@ -1,14 +1,9 @@
 // Class definitions
 class StockDayPrice {
-    constructor(symbol, date, open, close, high, low, change, changePercent) {
-        this.symbol = symbol;
-        this.date = date;
-        this.open = open;
-        this.close = close;
-        this.high = high;
-        this.low = low;
-        this.change = change;
-        this.changePercent = changePercent;
+    constructor(ticker, date, close) {
+        this.ticker = ticker;
+        this.x = new Date(date);
+        this.close = parseInt(close, 10);
     }
 }
 
@@ -17,29 +12,31 @@ angular.module('app', ['n3-line-chart'])
 
 function mainCtrl ($scope) {
     $scope.toTrack = []
-    $scope.stocks = [];
+    $scope.stocks = {};
 
     $scope.updateLineChart = function() {
         // Do something that adds what's in stocks to the data and options
+        $scope.options["series"] = [];
+        for (let ticker of $scope.toTrack) {
+            console.log("in update");
+            $scope.data[ticker] = $scope.stocks[ticker];
+            $scope.options["series"].push({
+                axis: "y",
+                y: "price",
+                dataset: ticker,
+                key: "close",
+                label: ticker + ": $",
+                color: "hsla(88, 48%, 48%, 1)",
+                type: ["line"],
+                id: "mySeries" + ticker
+            });
+        }
     }
 
-    $scope.data = {
-    }
+    $scope.data = {}
 
     $scope.options = {
         margin: {top: 20},
-        series: [
-            {
-            axis: "y",
-            y: "price",
-            dataset: "dataset0",
-            key: "val_0",
-            label: "A line series",
-            color: "hsla(88, 48%, 48%, 1)",
-            type: ["line"],
-            id: "mySeries0"
-            }
-        ],
         axes: {x: {key: "x", type: "date"}}
     };
 
@@ -55,20 +52,18 @@ function mainCtrl ($scope) {
     }
 
     $scope.addStockPrice = function (dp) {
-        $scope.stocks.push(dp);
+        $scope.stocks[dp.ticker].push(dp);
     }
 
     $scope.getStockData = function () {
         // Get 5 year stock data for each stock we want to track and add to stocks
         for (let ticker of $scope.toTrack) {
+            $scope.stocks[ticker] = [];
             five_year_url = 'https://api.iextrading.com/1.0/stock/' + ticker + '/chart/5y';
             $.getJSON(five_year_url)
                 .done((response) => {
                     for (let price of response) {
-                        let dayprice = new StockDayPrice(
-                            ticker, price.date, price.open, price.close,
-                            price.high, price.low, price.change, price.changePercent
-                        );
+                        let dayprice = new StockDayPrice(ticker, price.date, price.close);
                         $scope.addStockPrice(dayprice);
                     }
                     $scope.$apply();
