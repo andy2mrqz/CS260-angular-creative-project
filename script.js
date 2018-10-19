@@ -18,7 +18,6 @@ function mainCtrl ($scope) {
         // Do something that adds what's in stocks to the data and options
         $scope.options["series"] = [];
         for (let ticker of $scope.toTrack) {
-            console.log("in update");
             $scope.data[ticker] = $scope.stocks[ticker];
             $scope.options["series"].push({
                 axis: "y",
@@ -31,6 +30,7 @@ function mainCtrl ($scope) {
                 id: "mySeries" + ticker
             });
         }
+        $scope.$apply();
     }
 
     $scope.data = {}
@@ -58,19 +58,22 @@ function mainCtrl ($scope) {
     $scope.getStockData = function () {
         // Get 5 year stock data for each stock we want to track and add to stocks
         for (let ticker of $scope.toTrack) {
-            $scope.stocks[ticker] = [];
             five_year_url = 'https://api.iextrading.com/1.0/stock/' + ticker + '/chart/5y';
             $.getJSON(five_year_url)
                 .done((response) => {
+                    $scope.stocks[ticker] = [];
                     for (let price of response) {
                         let dayprice = new StockDayPrice(ticker, price.date, price.close);
                         $scope.addStockPrice(dayprice);
                     }
                     $scope.$apply();
+                    $scope.updateLineChart();
                 })
-                .fail(() => console.log("Trouble grabbing data for " + ticker));
+                .fail(() => {
+                    $scope.toTrack.splice($scope.toTrack.indexOf(ticker),1);
+                    $scope.$apply();
+                    alert("Trouble grabbing data for " + ticker + ".  Make sure you submit valid tickers (ex. GOOGL)")
+                });
         }
-
-        $scope.updateLineChart();
     }
 }
