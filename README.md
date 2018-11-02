@@ -1,1 +1,1 @@
-# CS260-angular-creative-project
+# Stocks Dashboard (Angular frontend)
